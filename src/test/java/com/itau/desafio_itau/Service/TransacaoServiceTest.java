@@ -4,8 +4,11 @@ import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +36,6 @@ public class TransacaoServiceTest {
         service.adicionarTransacao(transacao);
 
         //então: a transação deve ser adicionada
-        //assertEquals(1, service.obterQuantidadeTransacoes());
         verify(repoMock, times(1)).adicionarTransacao(transacao);
     }
 }

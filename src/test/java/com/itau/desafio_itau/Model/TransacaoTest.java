@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import com.itau.desafio_itau.Exception.InvalidDateException;
 import com.itau.desafio_itau.Exception.ValueInvalidException;
 
 import jakarta.validation.ConstraintViolation;
@@ -45,31 +46,21 @@ public class TransacaoTest {
     public void nao_deve_validar_transacao_com_data_futura() {
         //dado: dataHora 1 minuto no futuro
         OffsetDateTime dataFutura = OffsetDateTime.now().plusMinutes(1);
-        Transacao transacao = new Transacao(BigDecimal.valueOf(100), dataFutura);
 
         //quando: validamos a transação
-        Set<ConstraintViolation<Transacao>> violations = validator.validate(transacao);
-
-        //então: deve haver violação de PastOrPresent
-        assertFalse(violations.isEmpty());
-        assertTrue(violations.stream()
-                                .anyMatch(v -> v.getPropertyPath().toString().equals("dataHora")
-                                && v.getMessage().equals("Data e hora da transação não podem ser futuras.")));
-
+        //então: deve lançar uma InvalidDateException
+        assertThrows(InvalidDateException.class, () -> {
+            Transacao transacao = new Transacao(BigDecimal.valueOf(100), dataFutura);
+        });
     }
 
     @Test
     public void nao_deve_validar_transacao_com_data_nula() {
         //dado: dataHora nula
-        Transacao transacao = new Transacao(BigDecimal.valueOf(100), null);
-
         //quando: validamos a transação
-        Set<ConstraintViolation<Transacao>> violations = validator.validate(transacao);
-
-        //então: deve haver violação de NotNull
-        assertFalse(violations.isEmpty());
-        assertTrue(violations.stream()
-                                .anyMatch(v -> v.getPropertyPath().toString().equals("dataHora")
-                                && v.getMessage().equals("Data e hora da transação não podem ser nulos.")));
+        //então: deve lançar uma InvalidDateException
+        assertThrows(InvalidDateException.class, () -> {
+            Transacao transacao = new Transacao(BigDecimal.valueOf(100), null);
+        });
     }
 }
