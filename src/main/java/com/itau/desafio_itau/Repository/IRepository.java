@@ -9,5 +9,5 @@ public interface IRepository {
 
     void adicionarTransacao(Transacao transacao);
     int obterQuantidadeTransacoes();
-
+    
 }

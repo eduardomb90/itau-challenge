@@ -22,4 +22,6 @@ public class TransacaoService {
         return repository.obterQuantidadeTransacoes();
     }
 
+    
+
 }
