@@ -1,5 +1,9 @@
 package com.itau.desafio_itau.Service;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.DoubleSummaryStatistics;
+
 import org.springframework.stereotype.Service;
 
 import com.itau.desafio_itau.Model.Transacao;
@@ -24,6 +28,15 @@ public class TransacaoService {
 
     public void limparTransacoes() {
         repository.limparTransacoes();
+    }
+
+    public DoubleSummaryStatistics obterEstatisticas() {
+        var transacoes = repository.obterTransacoes();
+        return transacoes.stream()
+            .filter(t -> t.dataHora().isAfter(OffsetDateTime.now().minusSeconds(60)))
+            .map(Transacao::valor) //.map(t -> t.valor()) ... mesma coisa
+            .mapToDouble(BigDecimal::doubleValue) // .mapToDouble(bd -> bd.doubleValue()) ... mesma coisa
+            .summaryStatistics();
     }
 
 }
