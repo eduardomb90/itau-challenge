@@ -22,6 +22,8 @@ public class TransacaoService {
         return repository.obterQuantidadeTransacoes();
     }
 
-    
+    public void limparTransacoes() {
+        repository.limparTransacoes();
+    }
 
 }

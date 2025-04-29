@@ -19,5 +19,7 @@ public class TransacaoRepository implements IRepository {
         return transacoes.size();
     }
 
-    
+    public void limparTransacoes() {
+        transacoes.clear();
+    }
 }

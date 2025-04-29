@@ -33,5 +33,9 @@ public class TransacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    
+    @DeleteMapping
+    public ResponseEntity<Void> limparTransacoes() {
+        service.limparTransacoes();
+        return ResponseEntity.ok().build();
+    }
 }
