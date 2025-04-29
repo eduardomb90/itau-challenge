@@ -38,4 +38,21 @@ public class TransacaoServiceTest {
         //então: a transação deve ser adicionada
         verify(repoMock, times(1)).adicionarTransacao(transacao);
     }
+
+    @Test
+    public void deve_limpar_transacoes() {
+        //dado: duas transações
+        Transacao transacao1 = new Transacao(BigDecimal.valueOf(100), OffsetDateTime.now());
+        Transacao transacao2 = new Transacao(BigDecimal.valueOf(200), OffsetDateTime.now());
+        
+        //quando: adiciona as transações
+        service.adicionarTransacao(transacao1);
+        service.adicionarTransacao(transacao2);
+
+        //quando: limpa as transações
+        service.limparTransacoes();
+
+        //então: a quantidade de transações deve ser 0
+        verify(repoMock, times(1)).limparTransacoes();
+    }
 }

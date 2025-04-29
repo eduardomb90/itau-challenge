@@ -75,5 +75,14 @@ public class TransacaoControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    
+    @Test
+    public void deve_retornar_status_200_quando_delete_chamado() throws Exception {
+        //dado: um request DELETE
+        mockMvc.perform(
+                    delete("/transacao")
+                )
+                .andExpect(status().isOk());
+
+        verify(service).limparTransacoes();
+    }
 }
