@@ -22,4 +22,8 @@ public class TransacaoRepository implements IRepository {
     public void limparTransacoes() {
         transacoes.clear();
     }
+
+    public Queue<Transacao> obterTransacoes() {
+        return transacoes;
+    }
 }
